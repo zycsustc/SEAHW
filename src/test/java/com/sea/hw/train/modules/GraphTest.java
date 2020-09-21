@@ -2,7 +2,6 @@ package com.sea.hw.train.modules;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +12,7 @@ class GraphTest {
 
     @BeforeEach
     void setUp(){
-        vertices = new ArrayList<Vertex>();
+        vertices = new ArrayList<>();
         edges = new ArrayList<>();
 
         Vertex vertexA = new Vertex("A");
@@ -33,6 +32,14 @@ class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         assertEquals(edges, graph.getEdges());
-        assertEquals(vertices, graph.getVertexes());
+        assertEquals(vertices, graph.getVertices());
+    }
+
+    @Test
+    void shouldConstructCorrectGraphGivenOneStringInput() {
+        Graph graph = new Graph("AB5,BC6");
+
+        assertEquals(edges.toString(), graph.getEdges().toString());
+        assertEquals(vertices.toString(), graph.getVertices().toString());
     }
 }
