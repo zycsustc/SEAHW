@@ -69,4 +69,20 @@ public class TrainSystemCalculator {
         }
         visitedList.remove(startVertex);
     }
+
+    public void getAllPathsWithMaxDistance(Vertex startVertex, Vertex endVertex, int maxDistance) {
+        visitedList.add(startVertex);
+        int distance = getDistanceByPath(visitedList);
+        if (distance < maxDistance) {
+            for (Edge edge : graph.getEdges()) {
+                if (edge.getSource().equals(startVertex)) {
+                    if (edge.getDestination().equals(endVertex) && distance + edge.getWeight() < maxDistance) {
+                        resultPaths.add(visitedList.toString().substring(0, visitedList.toString().lastIndexOf("]")) + ", " + endVertex + "]");
+                    }
+                    getAllPathsWithMaxDistance(edge.getDestination(), endVertex, maxDistance);
+                }
+            }
+        }
+        visitedList.remove(visitedList.size() - 1);
+    }
 }
