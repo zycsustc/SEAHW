@@ -57,4 +57,32 @@ public class Graph {
         }
         return null;
     }
+
+    public int getDistanceBetweenTwoVertices(Vertex vertex, Vertex target) {
+        for (Edge edge :edges) {
+            if (edge.getSource().equals(vertex)
+                    && edge.getDestination().equals(target)) {
+                return edge.getWeight();
+            }
+        }
+        return Integer.MAX_VALUE;
+    }
+
+    public int getDistanceByPathInGraph(LinkedList<Vertex> path) {
+        int distance = 0;
+        int vertexIndex = 0;
+        Vertex nextVertex;
+        if (path.size() < 2) {
+            return distance;
+        }
+        for (Vertex vertex : path) {
+            nextVertex = path.get(vertexIndex + 1);
+            distance += getDistanceBetweenTwoVertices(vertex, nextVertex);
+            vertexIndex += 1;
+            if (vertexIndex == path.size() - 1) {
+                return distance;
+            }
+        }
+        return distance;
+    }
 }

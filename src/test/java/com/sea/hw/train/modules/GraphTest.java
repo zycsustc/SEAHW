@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GraphTest {
     private ArrayList<Vertex> vertices;
     private ArrayList<Edge> edges;
+    private Graph graph;
 
     @BeforeEach
     void setUp(){
@@ -26,12 +27,12 @@ class GraphTest {
 
         edges.add(new Edge("Edge_0", vertexA, vertexB, 5));
         edges.add(new Edge("Edge_1", vertexB, vertexC, 6));
+
+        graph = new Graph(vertices, edges);
     }
 
     @Test
     void shouldConstructCorrectGraph() {
-        Graph graph = new Graph(vertices, edges);
-
         assertEquals(edges, graph.getEdges());
         assertEquals(vertices, graph.getVertices());
     }
@@ -46,8 +47,6 @@ class GraphTest {
 
     @Test
     void shouldGetCorrectVertexInGraphById() {
-        Graph graph = new Graph(vertices, edges);
-
         Vertex vertexFromGraph = graph.getVertexInVertices("A");
 
         assertEquals(vertices.get(0), vertexFromGraph);
@@ -55,8 +54,6 @@ class GraphTest {
 
     @Test
     void shouldGetCorrectLinkedVertexByStopsInGraph() {
-        Graph graph = new Graph(vertices, edges);
-
         ArrayList<String> stopsIdList = new ArrayList<>();
         stopsIdList.add("A");
         stopsIdList.add("B");
@@ -67,5 +64,20 @@ class GraphTest {
         assertEquals(vertices.get(0), path.get(0));
         assertEquals(vertices.get(1), path.get(1));
         assertEquals(vertices.get(2), path.get(2));
+    }
+
+    @Test
+    void shouldGetCorrectDistanceBetweenTwoVerticesInGraph(){
+        assertEquals(5, graph.getDistanceBetweenTwoVertices(vertices.get(0), vertices.get(1)));
+    }
+
+    @Test
+    void shouldReturnPathDistanceExactlyAtoEtoBtoCtoD() {
+        ArrayList<String> stops = new ArrayList<>();
+        stops.add("A");
+        stops.add("B");
+        stops.add("C");
+        LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
+        assertEquals(11, graph.getDistanceByPathInGraph(path));
     }
 }

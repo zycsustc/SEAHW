@@ -10,28 +10,14 @@ public class TrainSystemCalculator {
     }
 
     public int getDistanceByPath(LinkedList<Vertex> path) {
-        int distance = 0;
-        int vertexIndex = 0;
-        Vertex nextVertex;
-        if (path.size() < 2) {
-            return distance;
-        }
-        for (Vertex vertex : path) {
-            nextVertex = path.get(vertexIndex + 1);
-            distance += getDistanceBetweenTwoVertices(vertex, nextVertex);
-            vertexIndex += 1;
-            if (vertexIndex == path.size() - 1) {
-                return distance;
-            }
-        }
-        return distance;
+        return graph.getDistanceByPathInGraph(path);
     }
 
     public String getExactPath(LinkedList<Vertex> exactPath) {
         for (Vertex vertex : exactPath) {
             if (vertex.equals(exactPath.getLast())) {
                 break;
-            } else if (getDistanceBetweenTwoVertices(vertex, exactPath.get(exactPath.indexOf(vertex) + 1)) == Integer.MAX_VALUE) {
+            } else if (graph.getDistanceBetweenTwoVertices(vertex, exactPath.get(exactPath.indexOf(vertex) + 1)) == Integer.MAX_VALUE) {
                 return "NO SUCH ROUTE";
             }
         }
@@ -57,20 +43,10 @@ public class TrainSystemCalculator {
             return null;
         }
         for (LinkedList<Vertex> path : paths) {
-            int distance = getDistanceByPath(path);
+            int distance = graph.getDistanceByPathInGraph(path);
             minDistance = Math.min(distance, minDistance);
             shortestPath = minDistance == distance ? path : shortestPath;
         }
         return shortestPath;
-    }
-
-    private int getDistanceBetweenTwoVertices(Vertex vertex, Vertex target) {
-        for (Edge edge : graph.getEdges()) {
-            if (edge.getSource().equals(vertex)
-                    && edge.getDestination().equals(target)) {
-                return edge.getWeight();
-            }
-        }
-        return Integer.MAX_VALUE;
     }
 }

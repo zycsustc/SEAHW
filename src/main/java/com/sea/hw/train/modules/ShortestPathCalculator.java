@@ -43,8 +43,6 @@ public class ShortestPathCalculator {
         return path;
     }
 
-
-
     public ArrayList<LinkedList<Vertex>> getPathsSameStartAndEnd(Vertex start, ShortestPathCalculator shortestPathCalculator) {
         ArrayList<LinkedList<Vertex>> paths = new ArrayList<>();
         List<Vertex> adjacentVertices = getAdjacentVertices(start);
@@ -73,9 +71,9 @@ public class ShortestPathCalculator {
         List<Vertex> adjacentVertices = getVertexNeighbors(vertex);
         for (Vertex target : adjacentVertices) {
             if (getShortestDistance(target) > getShortestDistance(vertex)
-                    + getDistanceBetweenTwoVertices(vertex, target)) {
+                    + graph.getDistanceBetweenTwoVertices(vertex, target)) {
                 distance.put(target, getShortestDistance(vertex)
-                        + getDistanceBetweenTwoVertices(vertex, target));
+                        + graph.getDistanceBetweenTwoVertices(vertex, target));
                 predecessors.put(target, vertex);
                 unSettledVertices.add(target);
             }
@@ -110,16 +108,6 @@ public class ShortestPathCalculator {
             }
         }
         return minimum;
-    }
-
-    private int getDistanceBetweenTwoVertices(Vertex vertex, Vertex target) {
-        for (Edge edge : graph.getEdges()) {
-            if (edge.getSource().equals(vertex)
-                    && edge.getDestination().equals(target)) {
-                return edge.getWeight();
-            }
-        }
-        return Integer.MAX_VALUE;
     }
 
     private boolean isSettled(Vertex vertex) {
