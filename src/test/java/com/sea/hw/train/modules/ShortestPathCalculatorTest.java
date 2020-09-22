@@ -44,7 +44,7 @@ class ShortestPathCalculatorTest {
     }
 
     @Test
-    void shouldReturnShortestDistanceDifferentStartAndEnd() {
+    void shouldReturnShortestPathDifferentStartAndEnd() {
         Vertex start = graph.getVertexInVertices("A");
         Vertex end = graph.getVertexInVertices("C");
         ArrayList<String> stops = new ArrayList<>();
@@ -55,6 +55,20 @@ class ShortestPathCalculatorTest {
 
         shortestPathCalculator.initShortestPathCalculator(start);
         LinkedList<Vertex> path = shortestPathCalculator.getShortestPathDifferentStartAndEnd(end);
+
+        assertEquals(expectedPath, path);
+    }
+
+    @Test
+    void shouldReturnShortestPathSameStartAndEnd() {
+        Vertex start = graph.getVertexInVertices("B");
+        ArrayList<String> stops = new ArrayList<>();
+        stops.add("B");
+        stops.add("C");
+        stops.add("E");
+        stops.add("B");
+        LinkedList<Vertex> expectedPath = graph.getLinkedVertexByStopsInGraph(stops);
+        LinkedList<Vertex> path = shortestPathCalculator.getShortestPathSameStartAndEnd(start);
 
         assertEquals(expectedPath, path);
     }

@@ -30,23 +30,7 @@ public class TrainSystemCalculator {
             shortestPathCalculator.initShortestPathCalculator(start);
             return shortestPathCalculator.getShortestPathDifferentStartAndEnd(end);
         } else {
-            return getShortestPathSameStartAndEnd(start);
+            return shortestPathCalculator.getShortestPathSameStartAndEnd(start);
         }
-    }
-
-    private LinkedList<Vertex> getShortestPathSameStartAndEnd(Vertex start) {
-        int minDistance = Integer.MAX_VALUE;
-        LinkedList<Vertex> shortestPath = new LinkedList<>();
-        ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(this.graph);
-        ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(start, shortestPathCalculator);
-        if (paths.size() <= 0) {
-            return null;
-        }
-        for (LinkedList<Vertex> path : paths) {
-            int distance = graph.getDistanceByPathInGraph(path);
-            minDistance = Math.min(distance, minDistance);
-            shortestPath = minDistance == distance ? path : shortestPath;
-        }
-        return shortestPath;
     }
 }
