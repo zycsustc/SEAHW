@@ -67,6 +67,17 @@ class TrainSystemCalculatorTest {
     }
 
     @Test
+    void shouldReturnNoSuchRouteMessageExactlyAtoEtoD() {
+        ArrayList<String> stops = new ArrayList<>();
+        stops.add("A");
+        stops.add("E");
+        stops.add("D");
+        LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
+
+        assertEquals(trainSystemCalculator.getExactPath(path), "NO SUCH ROUTE");
+    }
+
+    @Test
     void shouldReturnShortestDistanceFromAtoC() {
         Vertex start = graph.getVertexInVertices("A");
         Vertex end = graph.getVertexInVertices("C");
@@ -76,5 +87,4 @@ class TrainSystemCalculatorTest {
 
         assertEquals(distance, 9);
     }
-
 }

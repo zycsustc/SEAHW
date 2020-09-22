@@ -4,8 +4,7 @@ import java.util.*;
 
 public class TrainSystemCalculator {
     private final Graph graph;
-
-
+    
     public TrainSystemCalculator(Graph graph) {
         this.graph = graph;
     }

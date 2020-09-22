@@ -9,7 +9,7 @@ public class ShortestPathCalculator {
     private Set<Vertex> unSettledVertices;
     private Map<Vertex, Integer> distance;
 
-    public ShortestPathCalculator(Graph graph){
+    public ShortestPathCalculator(Graph graph) {
         this.graph = graph;
     }
 
