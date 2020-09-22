@@ -54,7 +54,7 @@ public class TrainSystemCalculator {
         }
     }
 
-    private void getAllPathsWithExactStops(Vertex startVertex, Vertex endVertex, int stops) {
+    public void getAllPathsWithExactStops(Vertex startVertex, Vertex endVertex, int stops) {
         visitedList.add(startVertex);
         for (Edge edge : graph.getEdges()) {
             if (edge.getSource().equals(startVertex)) {
