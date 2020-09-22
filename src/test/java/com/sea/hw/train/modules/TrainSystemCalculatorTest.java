@@ -128,9 +128,7 @@ class TrainSystemCalculatorTest {
         Vertex source = graph.getVertexInVertices("C");
         Vertex target = graph.getVertexInVertices("C");
 
-        trainSystemCalculator.getAllPathsWithMaxDistance(source, target, 30);
-
-        assertEquals(7, trainSystemCalculator.resultPaths.size());
+        assertEquals(7, trainSystemCalculator.getNumberOfPathWithMaxDistance(source, target, 30));
     }
 
     @Test
@@ -138,7 +136,6 @@ class TrainSystemCalculatorTest {
         Vertex source = graph.getVertexInVertices("A");
         Vertex target = graph.getVertexInVertices("C");
 
-        trainSystemCalculator.getAllPathsWithMaxDistance(source, target, 15);
-        assertEquals(3, trainSystemCalculator.resultPaths.size());
+        assertEquals(3, trainSystemCalculator.getNumberOfPathWithMaxDistance(source, target, 15));
     }
 }

@@ -5,7 +5,7 @@ import java.util.*;
 public class TrainSystemCalculator {
     private final Graph graph;
     private final LinkedList<Vertex> visitedList = new LinkedList<>();
-    public ArrayList<String> resultPaths = new ArrayList<>();
+    private final ArrayList<String> resultPaths = new ArrayList<>();
 
     public TrainSystemCalculator(Graph graph) {
         this.graph = graph;
@@ -36,26 +36,31 @@ public class TrainSystemCalculator {
         }
     }
 
-    public int getNumberOfPathConditionedOnStops(Vertex start, Vertex end, String Condition, int number) {
+    public int getNumberOfPathConditionedOnStops(Vertex start, Vertex end, String Condition, int stopNumber) {
         if(start.getId().equals(end.getId())){
-            return getPathsByConditionOnStopsSameStartAndEnd(start, Condition, number).size();
+            return getPathsByConditionOnStopsSameStartAndEnd(start, Condition, stopNumber).size();
         } else {
-            getAllPathsWithExactStops(start, end, number);
+            getAllPathsWithExactStops(start, end, stopNumber);
             return resultPaths.size();
         }
     }
 
+    public int getNumberOfPathWithMaxDistance(Vertex start, Vertex end, int maxDistance) {
+        getAllPathsWithMaxDistance(start, end, maxDistance);
+        return resultPaths.size();
+    }
+
     private ArrayList<String> getPathsByConditionOnStopsSameStartAndEnd(
-            Vertex start, String Condition, int number) {
+            Vertex start, String Condition, int stopNumber) {
         ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(graph);
         if (Condition.equals("Equal")) {
-            getAllPathsWithExactStops(start, start, number);
+            getAllPathsWithExactStops(start, start, stopNumber);
             return resultPaths;
         } else {
             ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(start);
             ArrayList<java.lang.String> result = new ArrayList<>();
             for (LinkedList<Vertex> path : paths) {
-                if (path.size() <= number + 1) {
+                if (path.size() <= stopNumber + 1) {
                     result.add(path.toString());
                 }
             }
@@ -79,7 +84,7 @@ public class TrainSystemCalculator {
         visitedList.remove(startVertex);
     }
 
-    public void getAllPathsWithMaxDistance(Vertex startVertex, Vertex endVertex, int maxDistance) {
+    private void getAllPathsWithMaxDistance(Vertex startVertex, Vertex endVertex, int maxDistance) {
         visitedList.add(startVertex);
         int distance = getDistanceByPath(visitedList);
         if (distance < maxDistance) {
