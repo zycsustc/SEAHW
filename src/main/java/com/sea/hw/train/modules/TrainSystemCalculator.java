@@ -1,11 +1,14 @@
 package com.sea.hw.train.modules;
 
+import com.sea.hw.train.Exceptions.InvalidConditionException;
+
 import java.util.*;
 
 public class TrainSystemCalculator {
     private final Graph graph;
     private final LinkedList<Vertex> visitedList = new LinkedList<>();
     private final ArrayList<String> resultPaths = new ArrayList<>();
+    private final ConditionConstant conditionConstant = new ConditionConstant();
 
     public TrainSystemCalculator(Graph graph) {
         this.graph = graph;
@@ -38,11 +41,16 @@ public class TrainSystemCalculator {
 
     public int getNumberOfPathConditionedOnStops(Vertex start, Vertex end, String Condition, int stopNumber) {
         if(start.getId().equals(end.getId())){
-            return getPathsByConditionOnStopsSameStartAndEnd(start, Condition, stopNumber).size();
+            try {
+                return getPathsByConditionOnStopsSameStartAndEnd(start, Condition, stopNumber).size();
+            } catch (InvalidConditionException e) {
+                e.printStackTrace();
+            }
         } else {
             getAllPathsWithExactStops(start, end, stopNumber);
             return resultPaths.size();
         }
+        return Integer.MAX_VALUE;
     }
 
     public int getNumberOfPathWithMaxDistance(Vertex start, Vertex end, int maxDistance) {
@@ -51,20 +59,24 @@ public class TrainSystemCalculator {
     }
 
     private ArrayList<String> getPathsByConditionOnStopsSameStartAndEnd(
-            Vertex start, String Condition, int stopNumber) {
+            Vertex start, String Condition, int stopNumber) throws InvalidConditionException {
         ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(graph);
-        if (Condition.equals("Equal")) {
-            getAllPathsWithExactStops(start, start, stopNumber);
-            return resultPaths;
-        } else {
-            ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(start);
-            ArrayList<java.lang.String> result = new ArrayList<>();
-            for (LinkedList<Vertex> path : paths) {
-                if (path.size() <= stopNumber + 1) {
-                    result.add(path.toString());
+        try {
+            if (Condition.equals(conditionConstant.EQUAL)) {
+                getAllPathsWithExactStops(start, start, stopNumber);
+                return resultPaths;
+            } else {
+                ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(start);
+                ArrayList<java.lang.String> result = new ArrayList<>();
+                for (LinkedList<Vertex> path : paths) {
+                    if (path.size() <= stopNumber + 1) {
+                        result.add(path.toString());
+                    }
                 }
+                return result;
             }
-            return result;
+        } catch (Exception e) {
+            throw new InvalidConditionException("Invalid condition type");
         }
     }
 
