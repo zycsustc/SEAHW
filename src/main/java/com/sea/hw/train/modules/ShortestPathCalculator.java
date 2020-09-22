@@ -13,13 +13,13 @@ public class ShortestPathCalculator {
         this.graph = graph;
     }
 
-    public void initShortestPathCalculator(Vertex source) {
+    public void initShortestPathCalculator(Vertex start) {
         settledVertices = new HashSet<>();
         unSettledVertices = new HashSet<>();
         distance = new HashMap<>();
         predecessors = new HashMap<>();
-        distance.put(source, 0);
-        unSettledVertices.add(source);
+        distance.put(start, 0);
+        unSettledVertices.add(start);
         while (unSettledVertices.size() > 0) {
             Vertex vertex = getMinimum(unSettledVertices);
             settledVertices.add(vertex);
@@ -28,9 +28,9 @@ public class ShortestPathCalculator {
         }
     }
 
-    public LinkedList<Vertex> getShortestPathDifferentStartAndEnd(Vertex target) {
+    public LinkedList<Vertex> getShortestPathDifferentStartAndEnd(Vertex end) {
         LinkedList<Vertex> path = new LinkedList<>();
-        Vertex step = target;
+        Vertex step = end;
         if (predecessors.get(step) == null) {
             return null;
         }
@@ -85,13 +85,13 @@ public class ShortestPathCalculator {
 
     private void findMinimalDistances(Vertex vertex) {
         List<Vertex> adjacentVertices = getVertexNeighbors(vertex);
-        for (Vertex target : adjacentVertices) {
-            if (getShortestDistance(target) > getShortestDistance(vertex)
-                    + graph.getDistanceBetweenTwoVertices(vertex, target)) {
-                distance.put(target, getShortestDistance(vertex)
-                        + graph.getDistanceBetweenTwoVertices(vertex, target));
-                predecessors.put(target, vertex);
-                unSettledVertices.add(target);
+        for (Vertex end : adjacentVertices) {
+            if (getShortestDistance(end) > getShortestDistance(vertex)
+                    + graph.getDistanceBetweenTwoVertices(vertex, end)) {
+                distance.put(end, getShortestDistance(vertex)
+                        + graph.getDistanceBetweenTwoVertices(vertex, end));
+                predecessors.put(end, vertex);
+                unSettledVertices.add(end);
             }
         }
     }

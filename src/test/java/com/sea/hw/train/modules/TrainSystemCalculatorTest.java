@@ -118,10 +118,10 @@ class TrainSystemCalculatorTest {
 
     @Test
     void shouldFindAllPathsFromAtoCWithFourStops() {
-        Vertex source = graph.getVertexInVertices("A");
-        Vertex target = graph.getVertexInVertices("C");
+        Vertex start = graph.getVertexInVertices("A");
+        Vertex end = graph.getVertexInVertices("C");
 
-        trainSystemCalculator.getAllPathsWithExactStops(source, target, 4);
+        trainSystemCalculator.getAllPathsWithExactStops(start, end, 4);
 
         assertEquals(3, trainSystemCalculator.resultPaths.size());
     }

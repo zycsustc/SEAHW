@@ -37,13 +37,13 @@ public class TrainSystemCalculator {
     }
 
     public ArrayList<String> getPathsByConditionOnStopsSameStartAndEnd(
-            Vertex source, java.lang.String Condition, int number) {
+            Vertex start, java.lang.String Condition, int number) {
         ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(graph);
         if (Condition.equals("Equal")) {
-            getAllPathsWithExactStops(source, source, number);
+            getAllPathsWithExactStops(start, start, number);
             return resultPaths;
         } else {
-            ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(source);
+            ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(start);
             ArrayList<java.lang.String> result = new ArrayList<>();
             for (LinkedList<Vertex> path : paths) {
                 if (path.size() <= number + 1) {

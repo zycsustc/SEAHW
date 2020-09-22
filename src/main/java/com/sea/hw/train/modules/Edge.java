@@ -1,7 +1,7 @@
 package com.sea.hw.train.modules;
 
 public class Edge {
-    private final String id;
+    public final String id;
     private final Vertex source;
     private final Vertex destination;
     private final int weight;

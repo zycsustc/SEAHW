@@ -58,10 +58,10 @@ public class Graph {
         return null;
     }
 
-    public int getDistanceBetweenTwoVertices(Vertex vertex, Vertex target) {
+    public int getDistanceBetweenTwoVertices(Vertex vertex, Vertex end) {
         for (Edge edge :edges) {
             if (edge.getSource().equals(vertex)
-                    && edge.getDestination().equals(target)) {
+                    && edge.getDestination().equals(end)) {
                 return edge.getWeight();
             }
         }
