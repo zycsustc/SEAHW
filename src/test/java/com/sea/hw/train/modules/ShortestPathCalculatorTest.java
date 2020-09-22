@@ -8,9 +8,9 @@ import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TrainSystemCalculatorTest {
+class ShortestPathCalculatorTest {
     private Graph graph;
-    private TrainSystemCalculator trainSystemCalculator;
+    private ShortestPathCalculator shortestPathCalculator;
 
     @BeforeEach
     void setUp() {
@@ -40,41 +40,23 @@ class TrainSystemCalculatorTest {
         edges.add(new Edge("Edge_8", vertexA, vertexE, 7));
 
         graph = new Graph(vertexes, edges);
-        trainSystemCalculator = new TrainSystemCalculator(graph);
+        shortestPathCalculator = new ShortestPathCalculator(graph);
     }
 
     @Test
-    void shouldReturnPathDistanceExactlyAtoBtoC() {
-        ArrayList<String> stops = new ArrayList<>();
-        stops.add("A");
-        stops.add("B");
-        stops.add("C");
-        LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
-
-        assertEquals(trainSystemCalculator.getExactPath(path), "ROUTE FIND");
-        assertEquals(trainSystemCalculator.getDistanceByPath(path), 9);
-    }
-
-    @Test
-    void shouldReturnPathDistanceExactlyAtoD() {
-        ArrayList<String> stops = new ArrayList<>();
-        stops.add("A");
-        stops.add("D");
-        LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
-
-        assertEquals(trainSystemCalculator.getExactPath(path), "ROUTE FIND");
-        assertEquals(trainSystemCalculator.getDistanceByPath(path), 5);
-    }
-
-    @Test
-    void shouldReturnShortestDistanceFromAtoC() {
+    void shouldReturnShortestDistanceDifferentStartAndEnd() {
         Vertex start = graph.getVertexInVertices("A");
         Vertex end = graph.getVertexInVertices("C");
+        LinkedList<Vertex> expectedPath = new LinkedList<>();
+        expectedPath.add(graph.getVertexInVertices("A"));
+        expectedPath.add(graph.getVertexInVertices("B"));
+        expectedPath.add(graph.getVertexInVertices("C"));
 
-        LinkedList<Vertex> path = trainSystemCalculator.getShortestPath(start, end);
-        int distance = trainSystemCalculator.getDistanceByPath(path);
+        shortestPathCalculator.initShortestPathCalculator(start);
+        LinkedList<Vertex> path = shortestPathCalculator.getShortestPathDifferentStartAndEnd(end);
 
-        assertEquals(distance, 9);
+        assertEquals(expectedPath, path);
     }
+
 
 }
