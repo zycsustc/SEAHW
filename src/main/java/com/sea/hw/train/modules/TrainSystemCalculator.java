@@ -31,21 +31,11 @@ public class TrainSystemCalculator {
         for (Vertex vertex : exactPath) {
             if (vertex.equals(exactPath.getLast())) {
                 break;
-            } else if (getDistance(vertex, exactPath.get(exactPath.indexOf(vertex) + 1)) == Integer.MAX_VALUE) {
+            } else if (getDistanceBetweenTwoVertices(vertex, exactPath.get(exactPath.indexOf(vertex) + 1)) == Integer.MAX_VALUE) {
                 return "NO SUCH ROUTE";
             }
         }
         return "ROUTE FIND";
-    }
-
-    private int getDistance(Vertex vertex, Vertex target) {
-        for (Edge edge : graph.getEdges()) {
-            if (edge.getSource().equals(vertex)
-                    && edge.getDestination().equals(target)) {
-                return edge.getWeight();
-            }
-        }
-        return Integer.MAX_VALUE;
     }
 
     private int getDistanceBetweenTwoVertices(Vertex vertex, Vertex target) {
