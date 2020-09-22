@@ -4,6 +4,8 @@ import java.util.*;
 
 public class TrainSystemCalculator {
     private final Graph graph;
+    private final LinkedList<Vertex> visitedList = new LinkedList<>();
+    public ArrayList<String> resultPaths = new ArrayList<>();
 
     public TrainSystemCalculator(Graph graph) {
         this.graph = graph;
@@ -32,5 +34,39 @@ public class TrainSystemCalculator {
         } else {
             return shortestPathCalculator.getShortestPathSameStartAndEnd(start);
         }
+    }
+
+    public ArrayList<String> getPathsByConditionOnStopsSameStartAndEnd(
+            Vertex source, java.lang.String Condition, int number) {
+        ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(graph);
+        if (Condition.equals("Equal")) {
+            getAllPathsWithExactStops(source, source, number);
+            return resultPaths;
+        } else {
+            ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(source);
+            ArrayList<java.lang.String> result = new ArrayList<>();
+            for (LinkedList<Vertex> path : paths) {
+                if (path.size() <= number + 1) {
+                    result.add(path.toString());
+                }
+            }
+            return result;
+        }
+    }
+
+    private void getAllPathsWithExactStops(Vertex startVertex, Vertex endVertex, int stops) {
+        visitedList.add(startVertex);
+        for (Edge edge : graph.getEdges()) {
+            if (edge.getSource().equals(startVertex)) {
+                if (edge.getDestination().equals(endVertex) && visitedList.size() == stops) {
+                    resultPaths.add(visitedList.toString().substring(0, visitedList.toString().lastIndexOf("]")) + ", " + endVertex + "]");
+                    continue;
+                }
+                if (visitedList.size() <= stops) {
+                    getAllPathsWithExactStops(edge.getDestination(), endVertex, stops);
+                }
+            }
+        }
+        visitedList.remove(startVertex);
     }
 }

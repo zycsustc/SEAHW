@@ -97,4 +97,13 @@ class TrainSystemCalculatorTest {
 
         assertEquals(9, distance);
     }
+
+    @Test
+    void shouldReturnNumberOfRoutesFromCtoCWithMaximumThreeStops(){
+        Vertex source = graph.getVertexInVertices("C");
+
+        ArrayList<String> paths = trainSystemCalculator.getPathsByConditionOnStopsSameStartAndEnd(source, "Max", 3);
+
+        assertEquals(2, paths.size());
+    }
 }

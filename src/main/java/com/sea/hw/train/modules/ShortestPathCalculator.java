@@ -47,7 +47,7 @@ public class ShortestPathCalculator {
         int minDistance = Integer.MAX_VALUE;
         LinkedList<Vertex> shortestPath = new LinkedList<>();
         ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(this.graph);
-        ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(start, shortestPathCalculator);
+        ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(start);
         if (paths.size() <= 0) {
             return null;
         }
@@ -59,13 +59,13 @@ public class ShortestPathCalculator {
         return shortestPath;
     }
 
-    public ArrayList<LinkedList<Vertex>> getPathsSameStartAndEnd(Vertex start, ShortestPathCalculator shortestPathCalculator) {
+    public ArrayList<LinkedList<Vertex>> getPathsSameStartAndEnd(Vertex start) {
         ArrayList<LinkedList<Vertex>> paths = new ArrayList<>();
         List<Vertex> adjacentVertices = getAdjacentVertices(start);
         for (Vertex newStart : adjacentVertices) {
-            shortestPathCalculator.initShortestPathCalculator(newStart);
-            if (shortestPathCalculator.getShortestPathDifferentStartAndEnd(start) != null) {
-                LinkedList<Vertex> wholePath = shortestPathCalculator.getShortestPathDifferentStartAndEnd(start);
+            initShortestPathCalculator(newStart);
+            if (getShortestPathDifferentStartAndEnd(start) != null) {
+                LinkedList<Vertex> wholePath = getShortestPathDifferentStartAndEnd(start);
                 wholePath.add(0, start);
                 paths.add(wholePath);
             }
