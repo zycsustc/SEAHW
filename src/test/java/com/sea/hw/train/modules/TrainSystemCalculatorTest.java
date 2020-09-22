@@ -51,8 +51,8 @@ class TrainSystemCalculatorTest {
         stops.add("C");
         LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
 
-        assertEquals(trainSystemCalculator.getExactPath(path), "ROUTE FIND");
-        assertEquals(trainSystemCalculator.getDistanceByPath(path), 9);
+        assertEquals("ROUTE FIND", trainSystemCalculator.getExactPath(path));
+        assertEquals(9, trainSystemCalculator.getDistanceByPath(path));
     }
 
     @Test
@@ -62,8 +62,8 @@ class TrainSystemCalculatorTest {
         stops.add("D");
         LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
 
-        assertEquals(trainSystemCalculator.getExactPath(path), "ROUTE FIND");
-        assertEquals(trainSystemCalculator.getDistanceByPath(path), 5);
+        assertEquals("ROUTE FIND", trainSystemCalculator.getExactPath(path));
+        assertEquals(5, trainSystemCalculator.getDistanceByPath(path));
     }
 
     @Test
@@ -74,7 +74,7 @@ class TrainSystemCalculatorTest {
         stops.add("D");
         LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
 
-        assertEquals(trainSystemCalculator.getExactPath(path), "NO SUCH ROUTE");
+        assertEquals("NO SUCH ROUTE", trainSystemCalculator.getExactPath(path));
     }
 
     @Test
@@ -85,7 +85,7 @@ class TrainSystemCalculatorTest {
         LinkedList<Vertex> path = trainSystemCalculator.getShortestPath(start, end);
         int distance = trainSystemCalculator.getDistanceByPath(path);
 
-        assertEquals(distance, 9);
+        assertEquals(9, distance);
     }
 
     @Test
@@ -99,11 +99,20 @@ class TrainSystemCalculatorTest {
     }
 
     @Test
-    void shouldReturnNumberOfRoutesFromCtoCWithMaximumThreeStops(){
-        Vertex source = graph.getVertexInVertices("C");
+    void shouldReturnNumberOfPathFromCtoCWithMaximumThreeStops(){
+        Vertex start = graph.getVertexInVertices("C");
 
-        ArrayList<String> paths = trainSystemCalculator.getPathsByConditionOnStopsSameStartAndEnd(source, "Max", 3);
+        ArrayList<String> paths = trainSystemCalculator.getPathsByConditionOnStopsSameStartAndEnd(start, "Max", 3);
 
         assertEquals(2, paths.size());
+    }
+
+    @Test
+    void shouldReturnNumberOfPathFromCtoCWithExactlyThreeStops() {
+        Vertex start = graph.getVertexInVertices("C");
+
+        ArrayList<String> paths = trainSystemCalculator.getPathsByConditionOnStopsSameStartAndEnd(start, "Equal", 3);
+
+        assertEquals(1, paths.size());
     }
 }
