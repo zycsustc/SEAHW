@@ -36,8 +36,17 @@ public class TrainSystemCalculator {
         }
     }
 
-    public ArrayList<String> getPathsByConditionOnStopsSameStartAndEnd(
-            Vertex start, java.lang.String Condition, int number) {
+    public int getNumberOfPathConditionedOnStops(Vertex start, Vertex end, String Condition, int number) {
+        if(start.getId().equals(end.getId())){
+            return getPathsByConditionOnStopsSameStartAndEnd(start, Condition, number).size();
+        } else {
+            getAllPathsWithExactStops(start, end, number);
+            return resultPaths.size();
+        }
+    }
+
+    private ArrayList<String> getPathsByConditionOnStopsSameStartAndEnd(
+            Vertex start, String Condition, int number) {
         ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(graph);
         if (Condition.equals("Equal")) {
             getAllPathsWithExactStops(start, start, number);
@@ -54,16 +63,16 @@ public class TrainSystemCalculator {
         }
     }
 
-    public void getAllPathsWithExactStops(Vertex startVertex, Vertex endVertex, int stops) {
+    private void getAllPathsWithExactStops(Vertex startVertex, Vertex endVertex, int stopNumber) {
         visitedList.add(startVertex);
         for (Edge edge : graph.getEdges()) {
             if (edge.getSource().equals(startVertex)) {
-                if (edge.getDestination().equals(endVertex) && visitedList.size() == stops) {
+                if (edge.getDestination().equals(endVertex) && visitedList.size() == stopNumber) {
                     resultPaths.add(visitedList.toString().substring(0, visitedList.toString().lastIndexOf("]")) + ", " + endVertex + "]");
                     continue;
                 }
-                if (visitedList.size() <= stops) {
-                    getAllPathsWithExactStops(edge.getDestination(), endVertex, stops);
+                if (visitedList.size() <= stopNumber) {
+                    getAllPathsWithExactStops(edge.getDestination(), endVertex, stopNumber);
                 }
             }
         }

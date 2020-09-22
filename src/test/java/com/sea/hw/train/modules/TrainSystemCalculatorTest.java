@@ -101,29 +101,26 @@ class TrainSystemCalculatorTest {
     @Test
     void shouldReturnNumberOfPathFromCtoCWithMaximumThreeStops(){
         Vertex start = graph.getVertexInVertices("C");
+        int stopNumbers = 3;
 
-        ArrayList<String> paths = trainSystemCalculator.getPathsByConditionOnStopsSameStartAndEnd(start, "Max", 3);
-
-        assertEquals(2, paths.size());
+        assertEquals(2, trainSystemCalculator.getNumberOfPathConditionedOnStops(start, start, "Max", stopNumbers));
     }
 
     @Test
     void shouldReturnNumberOfPathFromCtoCWithExactlyThreeStops() {
         Vertex start = graph.getVertexInVertices("C");
+        int stopNumbers = 3;
 
-        ArrayList<String> paths = trainSystemCalculator.getPathsByConditionOnStopsSameStartAndEnd(start, "Equal", 3);
-
-        assertEquals(1, paths.size());
+        assertEquals(1, trainSystemCalculator.getNumberOfPathConditionedOnStops(start, start, "Equal", stopNumbers));
     }
 
     @Test
     void shouldFindAllPathsFromAtoCWithFourStops() {
         Vertex start = graph.getVertexInVertices("A");
         Vertex end = graph.getVertexInVertices("C");
+        int stopNumber = 4;
 
-        trainSystemCalculator.getAllPathsWithExactStops(start, end, 4);
-
-        assertEquals(3, trainSystemCalculator.resultPaths.size());
+        assertEquals(3, trainSystemCalculator.getNumberOfPathConditionedOnStops(start, end, "Equal", stopNumber));
     }
 
     @Test
