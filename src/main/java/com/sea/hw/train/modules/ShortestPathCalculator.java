@@ -43,6 +43,32 @@ public class ShortestPathCalculator {
         return path;
     }
 
+
+
+    public ArrayList<LinkedList<Vertex>> getPathsSameStartAndEnd(Vertex start, ShortestPathCalculator shortestPathCalculator) {
+        ArrayList<LinkedList<Vertex>> paths = new ArrayList<>();
+        List<Vertex> adjacentVertices = getAdjacentVertices(start);
+        for (Vertex newStart : adjacentVertices) {
+            shortestPathCalculator.initShortestPathCalculator(newStart);
+            if (shortestPathCalculator.getShortestPathDifferentStartAndEnd(start) != null) {
+                LinkedList<Vertex> wholePath = shortestPathCalculator.getShortestPathDifferentStartAndEnd(start);
+                wholePath.add(0, start);
+                paths.add(wholePath);
+            }
+        }
+        return paths;
+    }
+
+    public List<Vertex> getAdjacentVertices(Vertex vertex) {
+        List<Vertex> adjacentVertices = new ArrayList<>();
+        for (Edge edge : graph.getEdges()) {
+            if (edge.getSource().equals(vertex)) {
+                adjacentVertices.add(edge.getDestination());
+            }
+        }
+        return adjacentVertices;
+    }
+
     private void findMinimalDistances(Vertex vertex) {
         List<Vertex> adjacentVertices = getVertexNeighbors(vertex);
         for (Vertex target : adjacentVertices) {

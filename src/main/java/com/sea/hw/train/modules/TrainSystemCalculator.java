@@ -4,7 +4,7 @@ import java.util.*;
 
 public class TrainSystemCalculator {
     private final Graph graph;
-    
+
     public TrainSystemCalculator(Graph graph) {
         this.graph = graph;
     }
@@ -40,8 +40,28 @@ public class TrainSystemCalculator {
 
     public LinkedList<Vertex> getShortestPath(Vertex start, Vertex end) {
         ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(this.graph);
-        shortestPathCalculator.initShortestPathCalculator(start);
-        return shortestPathCalculator.getShortestPathDifferentStartAndEnd(end);
+        if(!start.getId().equals(end.getId())){
+            shortestPathCalculator.initShortestPathCalculator(start);
+            return shortestPathCalculator.getShortestPathDifferentStartAndEnd(end);
+        } else {
+            return getShortestPathSameStartAndEnd(start);
+        }
+    }
+
+    private LinkedList<Vertex> getShortestPathSameStartAndEnd(Vertex start) {
+        int minDistance = Integer.MAX_VALUE;
+        LinkedList<Vertex> shortestPath = new LinkedList<>();
+        ShortestPathCalculator shortestPathCalculator = new ShortestPathCalculator(this.graph);
+        ArrayList<LinkedList<Vertex>> paths = shortestPathCalculator.getPathsSameStartAndEnd(start, shortestPathCalculator);
+        if (paths.size() <= 0) {
+            return null;
+        }
+        for (LinkedList<Vertex> path : paths) {
+            int distance = getDistanceByPath(path);
+            minDistance = Math.min(distance, minDistance);
+            shortestPath = minDistance == distance ? path : shortestPath;
+        }
+        return shortestPath;
     }
 
     private int getDistanceBetweenTwoVertices(Vertex vertex, Vertex target) {

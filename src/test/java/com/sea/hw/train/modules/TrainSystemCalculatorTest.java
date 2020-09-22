@@ -87,4 +87,14 @@ class TrainSystemCalculatorTest {
 
         assertEquals(distance, 9);
     }
+
+    @Test
+    void shouldReturnShortestDistanceFromBtoB() {
+        Vertex start = graph.getVertexInVertices("B");
+
+        LinkedList<Vertex> path = trainSystemCalculator.getShortestPath(start, start);
+        int distance = trainSystemCalculator.getDistanceByPath(path);
+
+        assertEquals(9, distance);
+    }
 }
