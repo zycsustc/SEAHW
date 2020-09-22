@@ -66,4 +66,17 @@ class TrainSystemCalculatorTest {
         assertEquals(trainSystemCalculator.getDistanceByPath(path), 5);
     }
 
+    @Test
+    void shouldReturnShortestDistanceFromAtoC() {
+        Vertex source = graph.getVertexInVertices("A");
+        Vertex target = graph.getVertexInVertices("C");
+
+        trainSystemCalculator.execute(source);
+
+        LinkedList<Vertex> path = trainSystemCalculator.getShortestPathDifferentStartAndEnd(target);
+        int distance = trainSystemCalculator.getDistanceByPath(path);
+
+        assertEquals(distance, 9);
+    }
+
 }
