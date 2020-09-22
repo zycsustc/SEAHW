@@ -2,6 +2,7 @@ package com.sea.hw.train.modules;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Graph {
@@ -32,13 +33,12 @@ public class Graph {
         }
     }
 
-    private Vertex getVertexInVertices(String id){
-        for(Vertex vertex: vertices){
-            if (vertex.getId().equals(id)){
-                return vertex;
-            }
+    public LinkedList<Vertex> getLinkedVertexByStopsInGraph(ArrayList<String> stops) {
+        LinkedList<Vertex> path = new LinkedList<>();
+        for (String stop : stops) {
+            path.add(getVertexInVertices(stop));
         }
-        return null;
+        return path;
     }
 
     public List<Vertex> getVertices() {
@@ -47,5 +47,14 @@ public class Graph {
 
     public List<Edge> getEdges() {
         return edges;
+    }
+
+    public Vertex getVertexInVertices(String id){
+        for(Vertex vertex: vertices){
+            if (vertex.getId().equals(id)){
+                return vertex;
+            }
+        }
+        return null;
     }
 }
