@@ -85,4 +85,14 @@ public class Graph {
         }
         return distance;
     }
+
+    @Override
+    public String toString(){
+        String verticesPrint = this.vertices.toString();
+        StringBuilder edgesPrint = new StringBuilder();
+        for(Edge edge: this.edges){
+            edgesPrint.append(edge.toString());
+        }
+        return ("Graph: \n"+"Vertices: "+verticesPrint+"\nEdges: "+edgesPrint);
+    }
 }

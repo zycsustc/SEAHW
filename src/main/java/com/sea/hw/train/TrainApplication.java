@@ -32,8 +32,8 @@ public class TrainApplication {
             System.out.println("Please input your graph like 'AB5,BC4':");
             String input = scanner.nextLine();
             graph = new Graph(input);
-            System.out.println("The graph you input is: \n Further function to be implemented later......");
-            System.out.println(graph.getEdges().toString());
+            System.out.println(graph.toString());
+            System.out.println("The graph you input is: \nFurther function to be implemented later......");
         }
     }
 
