@@ -1,4 +1,4 @@
-package com.sea.hw.train.modules;
+package com.sea.hw.train.module;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

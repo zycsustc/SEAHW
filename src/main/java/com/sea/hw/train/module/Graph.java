@@ -1,4 +1,4 @@
-package com.sea.hw.train.modules;
+package com.sea.hw.train.module;
 
 
 import java.util.ArrayList;

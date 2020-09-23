@@ -1,8 +1,8 @@
 package com.sea.hw.train;
 
-import com.sea.hw.train.modules.Graph;
-import com.sea.hw.train.modules.TrainSystemCalculator;
-import com.sea.hw.train.modules.Vertex;
+import com.sea.hw.train.module.Graph;
+import com.sea.hw.train.module.TrainSystemCalculator;
+import com.sea.hw.train.module.Vertex;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

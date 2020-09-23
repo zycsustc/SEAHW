@@ -1,6 +1,6 @@
-package com.sea.hw.train.modules;
+package com.sea.hw.train.module;
 
-import com.sea.hw.train.Exceptions.InvalidConditionException;
+import com.sea.hw.train.exception.InvalidConditionException;
 
 import java.util.*;
 
