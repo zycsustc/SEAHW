@@ -40,6 +40,7 @@ public class TrainSystemCalculator {
     }
 
     public int getNumberOfPathConditionedOnStops(Vertex start, Vertex end, String Condition, int stopNumber) {
+        resultPaths.clear();
         if(start.getId().equals(end.getId())){
             try {
                 return getPathsByConditionOnStopsSameStartAndEnd(start, Condition, stopNumber).size();
@@ -54,6 +55,7 @@ public class TrainSystemCalculator {
     }
 
     public int getNumberOfPathWithMaxDistance(Vertex start, Vertex end, int maxDistance) {
+        resultPaths.clear();
         getAllPathsWithMaxDistance(start, end, maxDistance);
         return resultPaths.size();
     }

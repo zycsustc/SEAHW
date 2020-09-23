@@ -125,17 +125,17 @@ class TrainSystemCalculatorTest {
 
     @Test
     void shouldFindAllPathsFromCtoCWithMaxDistance30() {
-        Vertex source = graph.getVertexInVertices("C");
-        Vertex target = graph.getVertexInVertices("C");
+        Vertex start = graph.getVertexInVertices("C");
+        Vertex end = graph.getVertexInVertices("C");
 
-        assertEquals(7, trainSystemCalculator.getNumberOfPathWithMaxDistance(source, target, 30));
+        assertEquals(7, trainSystemCalculator.getNumberOfPathWithMaxDistance(start, end, 30));
     }
 
     @Test
     void shouldFindAllPathsFromAtoCWithMaxDistance15() {
-        Vertex source = graph.getVertexInVertices("A");
-        Vertex target = graph.getVertexInVertices("C");
+        Vertex start = graph.getVertexInVertices("A");
+        Vertex end = graph.getVertexInVertices("C");
 
-        assertEquals(3, trainSystemCalculator.getNumberOfPathWithMaxDistance(source, target, 15));
+        assertEquals(3, trainSystemCalculator.getNumberOfPathWithMaxDistance(start, end, 15));
     }
 }
