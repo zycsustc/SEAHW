@@ -81,7 +81,7 @@ public class TrainSystemCalculator {
                 return result;
             }
         } catch (Exception e) {
-            throw new InvalidConditionException("Invalid condition type");
+            throw new InvalidConditionException(messageConstant.Invalid_Condition);
         }
     }
 

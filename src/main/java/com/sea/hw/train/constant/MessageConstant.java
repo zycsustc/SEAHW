@@ -5,4 +5,5 @@ public class MessageConstant {
     public String ROUTE_NOT_FOUND = "NO SUCH ROUTE";
     public String YES = "Y";
     public String NO = "N";
+    public String Invalid_Condition = "Invalid condition type";
 }
