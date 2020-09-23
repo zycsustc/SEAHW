@@ -1,5 +1,6 @@
 package com.sea.hw.train;
 
+import com.sea.hw.train.constant.MessageConstant;
 import com.sea.hw.train.module.Graph;
 import com.sea.hw.train.module.TrainSystemCalculator;
 import com.sea.hw.train.module.Vertex;
@@ -13,7 +14,6 @@ import java.util.Scanner;
 
 @SpringBootApplication
 public class TrainApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(TrainApplication.class, args);
         runTrainSystemCalculator();
@@ -52,10 +52,11 @@ public class TrainApplication {
     }
 
     private static void printPathDistance(String stops, TrainSystemCalculator trainSystemCalculator, Graph graph) {
+        MessageConstant messageConstant = new MessageConstant();
         LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(getStops(stops));
         String findResult = trainSystemCalculator.getExactPath(path);
         String printedMessage;
-        if (findResult.equals("ROUTE FIND")) {
+        if (findResult.equals(messageConstant.ROUTE_FOUND)) {
             printedMessage = "Route " + stops + " found, the distance is: " + trainSystemCalculator.getDistanceByPath(path);
         } else {
             printedMessage = findResult + ": " + stops;

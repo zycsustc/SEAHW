@@ -1,5 +1,6 @@
 package com.sea.hw.train.module;
 
+import com.sea.hw.train.constant.MessageConstant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainSystemCalculatorTest {
     private Graph graph;
     private TrainSystemCalculator trainSystemCalculator;
+    private final MessageConstant messageConstant = new MessageConstant();
 
     @BeforeEach
     void setUp() {
@@ -51,7 +53,7 @@ class TrainSystemCalculatorTest {
         stops.add("C");
         LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
 
-        assertEquals("ROUTE FIND", trainSystemCalculator.getExactPath(path));
+        assertEquals(messageConstant.ROUTE_FOUND, trainSystemCalculator.getExactPath(path));
         assertEquals(9, trainSystemCalculator.getDistanceByPath(path));
     }
 
@@ -62,7 +64,7 @@ class TrainSystemCalculatorTest {
         stops.add("D");
         LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
 
-        assertEquals("ROUTE FIND", trainSystemCalculator.getExactPath(path));
+        assertEquals(messageConstant.ROUTE_FOUND, trainSystemCalculator.getExactPath(path));
         assertEquals(5, trainSystemCalculator.getDistanceByPath(path));
     }
 
@@ -74,7 +76,7 @@ class TrainSystemCalculatorTest {
         stops.add("D");
         LinkedList<Vertex> path = graph.getLinkedVertexByStopsInGraph(stops);
 
-        assertEquals("NO SUCH ROUTE", trainSystemCalculator.getExactPath(path));
+        assertEquals(messageConstant.ROUTE_NOT_FOUND, trainSystemCalculator.getExactPath(path));
     }
 
     @Test

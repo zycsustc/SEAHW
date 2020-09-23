@@ -1,5 +1,7 @@
 package com.sea.hw.train.module;
 
+import com.sea.hw.train.constant.ConditionConstant;
+import com.sea.hw.train.constant.MessageConstant;
 import com.sea.hw.train.exception.InvalidConditionException;
 
 import java.util.*;
@@ -9,6 +11,7 @@ public class TrainSystemCalculator {
     private final LinkedList<Vertex> visitedList = new LinkedList<>();
     private final ArrayList<String> resultPaths = new ArrayList<>();
     private final ConditionConstant conditionConstant = new ConditionConstant();
+    private final MessageConstant messageConstant = new MessageConstant();
 
     public TrainSystemCalculator(Graph graph) {
         this.graph = graph;
@@ -23,10 +26,10 @@ public class TrainSystemCalculator {
             if (vertex.equals(exactPath.getLast())) {
                 break;
             } else if (graph.getDistanceBetweenTwoVertices(vertex, exactPath.get(exactPath.indexOf(vertex) + 1)) == Integer.MAX_VALUE) {
-                return "NO SUCH ROUTE";
+                return messageConstant.ROUTE_NOT_FOUND;
             }
         }
-        return "ROUTE FIND";
+        return messageConstant.ROUTE_FOUND;
     }
 
     public LinkedList<Vertex> getShortestPath(Vertex start, Vertex end) {
